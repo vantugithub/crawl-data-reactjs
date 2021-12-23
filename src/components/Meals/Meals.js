@@ -16,6 +16,7 @@ const Meals = (props) => {
 
     return(
         <Fragment>
+
         <MealsSummary onSearchHashTag = {onSearchHashTag}></MealsSummary>
         {ctx.textSearchHashTag.length > 2 && <SearchHashTag></SearchHashTag>}
         {ctx.textSearchHashTag.length < 2 && <AvailableMeals></AvailableMeals> }

@@ -1,15 +1,20 @@
 import React,{useState} from "react";
 import Header from "./components/Layout/Header";
 import Meals from './components/Meals/Meals.js';
-import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
-
+import Analysis from "./components/Analysis/Analysis.js";
+import LoginContainer from "./components/Login/LoginContainer";
 function App() {
 
-  const [cartIsShown,setCartIsShown]  = useState(false);
+  const [SearchIsShown,setCartIsShown]  = useState(false);
 
   const showCartHandler = () => {
-    setCartIsShown(true);
+    if (SearchIsShown==false) {
+      setCartIsShown(true);
+    }
+    else {
+      setCartIsShown(false);
+    }
   };
   
   const hideCartHandler = () => {
@@ -18,10 +23,12 @@ function App() {
   
   return (
     <CartProvider>
-      {cartIsShown && <Cart onHideCart = {hideCartHandler}/> }
       <Header onShowCart = {showCartHandler} ></Header>
+      
       <main>
-        <Meals></Meals>
+        <LoginContainer />
+        {/* {!SearchIsShown && <Meals></Meals>} */}
+        {SearchIsShown && <Analysis></Analysis>}
       </main>
     </CartProvider>
   );

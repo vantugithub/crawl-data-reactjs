@@ -64,6 +64,8 @@ const AvailableMeals = (props) => {
         codeCaption ={meal.codeCaption} 
         caption={meal.caption} 
         username ={JSON.parse(meal.username).user}></MealItem>)
+
+        
     return <section className = {classes.meals}>
       
         <form  onSubmit={searchHander}>
