@@ -1,65 +1,83 @@
 import React, { useState } from "react";
-import axios from '../../../../router/react-app/node_modules/axios';
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../actions/auth";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 const FormLogin = (props) => {
-    const {setIsLogin} = props;
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const { setIsLogin } = props;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const onChangeUsername = (e)=>{
-        setUsername(e.target.value);
-    }
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
 
-    const onChangePassword = (e)=>{
-        setPassword(e.target.value);
-    }
+  const dispatch = useDispatch();
 
-    const onLogin = (e)=>{
-        e.preventDefault();
-        alert(username + "-" + password);
-        // axios.post(`http://localhost:8080/api/auth/login`,
-        //     {
+  const onChangeUsername = (e) => {
+    setUsername(e.target.value);
+  };
 
-        //     }
-        // ).then((response) => response.data).then((data) => {
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
 
-        // },
-        // (error) => {
-        //     alert(error.data.error);
-        // });
-        
-    }
-    return (
+  const onLogin = (e) => {
+    e.preventDefault();
+
+    dispatch(login(username, password))
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(() => {
+        // window.location.reload();
+      });
+  };
+
+  return (
     <div>
+      <p>Login Page</p>
 
-        <p>
-      Login Page
-      </p>
-    
-    <form onSubmit = {onLogin} style={{width : "80%", margin: "2px auto"}}>
+      <form onSubmit={onLogin} style={{ width: "80%", margin: "2px auto" }}>
         <div className="form-group">
-            <input type="text" className="form-control " placeholder="Username..." aria-label="Search"
+          <input
+            type="text"
+            className="form-control "
+            placeholder="Username..."
+            aria-label="Search"
             aria-describedby="search-addon"
             value={username}
-            onChange ={(e) => onChangeUsername(e)}   
+            onChange={(e) => onChangeUsername(e)}
             required
-            />
+          />
         </div>
         <div className="form-group">
-            <input type="password" className="form-control" placeholder="Password..." aria-label="Search"
-            aria-describedby="search-addon" 
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Password..."
+            aria-label="Search"
+            aria-describedby="search-addon"
             value={password}
-            onChange ={(e) => onChangePassword(e)}
+            onChange={(e) => onChangePassword(e)}
             required
-            />
+          />
         </div>
         <div className="form-group">
-            <button type="submit" class="btn btn-primary mr-2">Login</button>
-            <button type="button" class="btn btn-dark" onClick = {()=>setIsLogin(false)}>Register</button>
+          <button type="submit" class="btn btn-primary mr-2">
+            Login
+          </button>
+          <button
+            type="button"
+            class="btn btn-dark"
+            onClick={() => setIsLogin(false)}
+          >
+            Register
+          </button>
         </div>
-
-    </form>
+      </form>
     </div>
-    );
-}
+  );
+};
 
 export default FormLogin;

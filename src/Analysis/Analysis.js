@@ -3,7 +3,7 @@ import WordCloud from "react-d3-cloud";
 import { scaleOrdinal } from "d3-scale";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import classes from "./AvailableMeals.module.css";
-import authHeader from "../../services/auth-header";
+
 import axios from "axios";
 import CartContext from "../../store/cart-context";
 import { Bar } from "react-chartjs-2";
@@ -53,22 +53,16 @@ const Analysis = () => {
 
   useEffect(() => {
     axios
-      .get(`https://instagram-smart-crawler.herokuapp.com/api/posts/dates`, {
-        headers: authHeader(),
-      })
+      .get(`https://instagram-smart-crawler.herokuapp.com/api/posts/dates`)
       .then((response) => response.data)
       .then((data) => {
         setListDate(data.listDate);
-        setstartDate(data.listDate[0].date);
-        setEndDate(data.listDate[0].date);
       });
   }, []);
 
   useEffect(() => {
     axios
-      .get(`https://instagram-smart-crawler.herokuapp.com/api/posts/topics`, {
-        headers: authHeader(),
-      })
+      .get(`https://instagram-smart-crawler.herokuapp.com/api/posts/topics`)
       .then((response) => response.data)
       .then((data) => {
         setListTopic(data);
@@ -92,15 +86,12 @@ const Analysis = () => {
   };
 
   const submit = () => {
-    console.log(startDate + "|" + endDate + "|" + topic);
     axios
       .get(
-        `https://instagram-smart-crawler.herokuapp.com/api/posts/analysis?startDate=${startDate}&endDate=${endDate}&nameTopic=${topic}`,
-        { headers: authHeader() }
+        `https://instagram-smart-crawler.herokuapp.com/api/posts/analysis?startDate=${startDate}&endDate=${endDate}&nameTopic=${topic}`
       )
       .then((response) => response.data)
       .then((data) => {
-        console.log(data);
         let temp = data;
         setListData(temp);
       });

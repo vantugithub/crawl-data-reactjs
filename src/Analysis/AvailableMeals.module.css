@@ -1,0 +1,45 @@
+.meals {
+    max-width: 73rem;
+    width: 90%;
+    margin: 2rem auto;
+    animation: meals-appear 1s ease-out forwards;
+  }
+  
+  .meals ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .input_white {
+    color: white;
+  }
+  
+  .texth1 {
+    align-content: center;
+    text-align: center;
+    color: mintcream;
+
+  }
+
+  .background_bar {
+    background-color: white;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+}
+  
+  @keyframes meals-appear {
+    from {
+      opacity: 0;
+      transform: translateY(3rem);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
